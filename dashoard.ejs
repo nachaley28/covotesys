@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Chart</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Chart.js CDN -->
+</head>
+<body>
+    <div style="width: 75%; margin: auto;">
+        <canvas id="myChart"></canvas> <!-- Chart container -->
+    </div>
+
+    <script>
+        // Get the data passed from the server-side
+        const candidates = <%= JSON.stringify(candidates) %>;
+        const votes = <%= JSON.stringify(votes) %>;
+
+        // Create the chart
+        const ctx = document.getElementById('myChart').getContext('2d');
+        const myChart = new Chart(ctx, {
+            type: 'bar', // Can be 'bar', 'line', 'pie', etc.
+            data: {
+                labels: candidates, // X-axis labels (candidate names)
+                datasets: [{
+                    label: 'Votes per Candidate',
+                    data: votes, // Y-axis data (votes)
+                    backgroundColor: 'rgba(54, 162, 235, 0.6)', // Color of bars
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
